@@ -156,28 +156,19 @@
     }
     .light .hero::before { background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px); }
 
-    .hero-inner { max-width: 1140px; margin: 0 auto; width: 100%; position: relative; z-index: 1; display: flex; align-items: center; gap: 64px; }
-    .hero-left { flex: 1 1 auto; min-width: 0; }
-    .hero-right { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; }
-    .hero-photo-wrap {
-      position: relative; width: 260px;
-    }
-    .hero-photo-wrap::before {
-      content: '';
-      position: absolute;
-      inset: -2px;
-      border-radius: 16px;
-      background: linear-gradient(135deg, var(--navy) 0%, transparent 60%);
-      z-index: 0;
-    }
-    .hero-photo {
-      position: relative; z-index: 1;
-      width: 260px; height: 320px;
-      object-fit: cover; object-position: center top;
-      border-radius: 14px;
-      display: block;
-      opacity: 0; animation: fade-up .8s ease .6s forwards;
-    }
+    .hero-inner { max-width: 1140px; margin: 0 auto; width: 100%; position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0,1.25fr) minmax(0,1fr); gap: 64px; align-items: center; }
+    .hero-left { min-width: 0; }
+    .hero-aside { display:flex; flex-direction:column; gap:12px; opacity:0; animation:fade-up .7s ease .6s forwards; }
+    .pillar { padding:18px 22px; background:var(--surface); border:1px solid var(--border); border-radius:var(--radius-lg); transition:border-color .2s,background .2s,transform .2s; }
+    .pillar:hover { border-color:var(--border-hi); background:var(--surface-2); transform:translateX(3px); }
+    .pillar-kicker { font-size:9px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--text-4); margin-bottom:6px; }
+    .pillar-title { font-size:16px; font-weight:700; color:var(--text); margin-bottom:4px; }
+    .pillar-sub { font-size:12.5px; color:var(--text-3); line-height:1.4; }
+    .pillar-multi { padding:16px 20px; }
+    .pillar-mini-list { list-style:none; display:flex; flex-direction:column; gap:9px; }
+    .pmi-row { display:flex; align-items:baseline; gap:10px; }
+    .pmi-label { flex-shrink:0; min-width:62px; font-size:9px; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--text-4); }
+    .pmi-val { font-size:12.5px; color:var(--text-3); }
 
     @keyframes fade-up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
     @keyframes fade-in  { from { opacity:0; } to { opacity:1; } }
@@ -443,6 +434,9 @@
     /* ── CONTACT FORM ────────────────────────── */
     .contact-bg { position:relative; overflow:hidden; }
     .contact-bg::before { content:''; position:absolute; bottom:-200px; right:-200px; width:600px; height:600px; background:radial-gradient(circle,var(--navy-glow) 0%,transparent 65%); pointer-events:none; }
+    .contact-grid { display:grid; grid-template-columns:1fr 260px; gap:64px; align-items:start; }
+    .contact-photo-col { position:sticky; top:100px; }
+    .contact-photo { width:260px; height:320px; object-fit:cover; object-position:center top; border-radius:14px; display:block; border:1px solid var(--border); opacity:0; animation:fade-up .8s ease .3s forwards; }
     .c-heading { font-size:clamp(38px,5.5vw,64px); font-weight:900; letter-spacing:-2px; color:var(--text); line-height:1.0; margin-bottom:16px; }
     .c-sub { font-size:16px; color:var(--text-2); max-width:460px; line-height:1.74; margin-bottom:40px; }
 
@@ -555,6 +549,10 @@
 
     /* ── RESPONSIVE ──────────────────────────── */
     @media (max-width:900px) {
+      .hero-inner { grid-template-columns:1fr; }
+      .hero-aside { order:2; }
+      .contact-grid { grid-template-columns:1fr; }
+      .contact-photo-col { display:none; }
       .about-grid { grid-template-columns:1fr; gap:40px; }
       .take-grid { grid-template-columns:1fr; gap:24px; }
       .hh-content-grid { grid-template-columns:1fr; gap:44px; }
@@ -571,10 +569,6 @@
     @media (max-width:600px) {
       .section { padding:68px 20px; }
       .hero { padding:100px 20px 60px; }
-      .hero-inner { flex-direction: column-reverse; gap: 32px; }
-      .hero-right { width: 100%; align-items: flex-start; }
-      .hero-photo-wrap { width: 140px; }
-      .hero-photo { width: 140px; height: 172px; }
       .hero-name { letter-spacing:-1.5px; }
       .hero-meta { flex-direction:column; gap:4px; align-items:flex-start; }
       .hero-meta-item::after { display:none; }
@@ -661,9 +655,35 @@
       </div>
     </div>
 
-    <div class="hero-right">
-      <div class="hero-photo-wrap">
-        <img src="headshot.jpg" alt="Rafael Velasquez" class="hero-photo" />
+    <div class="hero-aside">
+      <div class="pillar">
+        <div class="pillar-kicker">Currently</div>
+        <div class="pillar-title">EY Financial Crimes</div>
+        <div class="pillar-sub">Technology Consulting Staff · Crypto compliance at GSIB scale</div>
+      </div>
+
+      <div class="pillar">
+        <div class="pillar-kicker">Building</div>
+        <div class="pillar-title">HostHelper</div>
+        <div class="pillar-sub">AI-powered STR management platform · In beta</div>
+      </div>
+
+      <div class="pillar pillar-multi">
+        <div class="pillar-kicker">Also</div>
+        <ul class="pillar-mini-list">
+          <li class="pmi-row">
+            <span class="pmi-label">Skills</span>
+            <span class="pmi-val">Next.js · Claude AI · Supabase</span>
+          </li>
+          <li class="pmi-row">
+            <span class="pmi-label">Writing</span>
+            <span class="pmi-val">The Blood Remembers — sci-fi trilogy</span>
+          </li>
+          <li class="pmi-row">
+            <span class="pmi-label">Off-Hours</span>
+            <span class="pmi-val">Weightlifting &amp; training · side projects · reading</span>
+          </li>
+        </ul>
       </div>
     </div>
 
@@ -1105,11 +1125,13 @@
 <section id="contact" class="section section-alt contact-bg">
   <div class="container" style="position:relative;z-index:1">
     <hr class="section-rule" />
-    <div class="section-label reveal">Contact</div>
-    <h2 class="c-heading reveal" style="transition-delay:.08s">Let's talk.</h2>
-    <p class="c-sub reveal" style="transition-delay:.16s">
-      I work with a small number of teams and institutions each year. If you think there's a fit, let's find out.
-    </p>
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="section-label reveal">Contact</div>
+        <h2 class="c-heading reveal" style="transition-delay:.08s">Let's talk.</h2>
+        <p class="c-sub reveal" style="transition-delay:.16s">
+          I work with a small number of teams and institutions each year. If you think there's a fit, let's find out.
+        </p>
 
     <!-- Contact form -->
     <form class="contact-form reveal" id="contact-form" style="transition-delay:.22s" novalidate>
@@ -1172,8 +1194,14 @@
       -->
     </div>
 
-    <hr class="c-divider reveal" style="transition-delay:.46s" />
-    <p class="c-note reveal" style="transition-delay:.50s">Based in New York, NY &nbsp;·&nbsp; Open to remote or hybrid</p>
+        <hr class="c-divider reveal" style="transition-delay:.46s" />
+        <p class="c-note reveal" style="transition-delay:.50s">Based in New York, NY &nbsp;·&nbsp; Open to remote or hybrid</p>
+      </div><!-- /.contact-left -->
+
+      <div class="contact-photo-col">
+        <img src="headshot.jpg" alt="Rafael Velasquez" class="contact-photo" />
+      </div>
+    </div><!-- /.contact-grid -->
   </div>
 </section>
 
