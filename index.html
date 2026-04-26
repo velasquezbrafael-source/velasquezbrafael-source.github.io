@@ -155,9 +155,9 @@
     }
     .light .hero::before { background-image: radial-gradient(rgba(0,0,0,0.05) 1px, transparent 1px); }
 
-    .hero-inner { max-width: 1140px; margin: 0 auto; width: 100%; position: relative; z-index: 1; display: flex; align-items: center; gap: 64px; }
-    .hero-left { flex: 1 1 auto; min-width: 0; }
-    .hero-right { flex: 0 0 380px; display: flex; flex-direction: column; align-self: stretch; }
+    .hero-inner { max-width: 1140px; margin: 0 auto; width: 100%; position: relative; z-index: 1; display: flex; align-items: stretch; gap: 64px; align-self: stretch; }
+    .hero-left { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; justify-content: center; }
+    .hero-right { flex: 0 0 380px; display: flex; flex-direction: column; }
 
     @keyframes fade-up { from { opacity:0; transform:translateY(18px); } to { opacity:1; transform:translateY(0); } }
     @keyframes fade-in  { from { opacity:0; } to { opacity:1; } }
